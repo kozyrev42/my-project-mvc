@@ -31,7 +31,7 @@
                     "type": "library"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Aura\\SqlQuery\\": "src/"
@@ -98,7 +98,7 @@
             },
             "time": "2021-04-21T14:39:10+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Delight\\Auth\\": "src/"
@@ -142,7 +142,7 @@
             },
             "time": "2017-07-24T18:59:51+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Delight\\Base64\\": "src/"
@@ -191,7 +191,7 @@
             },
             "time": "2020-04-16T11:01:26+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Delight\\Cookie\\": "src/"
@@ -239,7 +239,7 @@
             },
             "time": "2020-02-21T10:46:03+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Delight\\Db\\": "src/"
@@ -286,7 +286,7 @@
             },
             "time": "2021-10-12T18:52:29+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Delight\\Http\\": "src/"
@@ -341,7 +341,7 @@
             },
             "time": "2022-07-12T15:40:11+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "init.php"
@@ -407,7 +407,7 @@
                     "dev-master": "3.0-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "League\\Plates\\": "src"
@@ -467,7 +467,7 @@
             },
             "time": "2018-02-13T20:26:39+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions.php"

@@ -4,18 +4,22 @@ require '../vendor/autoload.php';
 
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {    // записываем в диспетчер пути(роуты), которые будут доступны в приложении, припереходе по Роуту, передаются данные указанные в параметре
-    // в параметре роута можно передать массив
-    // роут на страницу регистрации
-    $r->addRoute('GET', '/', ['App\controllers\HomeController','register']); //HomeController - класс, index - метод Класса
+    
+    // роут на страницу регистрации  ВРЕМЕННО !!!!!
+    $r->addRoute('GET', '/', ['App\controllers\HomeController','page_register']); //HomeController - класс, index - метод Класса
     // роут на страницу логирования
     $r->addRoute('GET', '/page_login', ['App\controllers\HomeController','page_login']);
     // роут на страницу регистрации
-    $r->addRoute('GET', '/page_register', ['App\controllers\HomeController','register']);
+    $r->addRoute('GET', '/page_register', ['App\controllers\HomeController','page_register']);
+
+    // роут на контроллер регистрации
+    $r->addRoute('POST', '/register', ['App\controllers\HomeController','register']);
+
+
 });
 
 
 // не обращать внимание, код не требует корректировки
-// получение данных из Глобального массива
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 // Strip query string (?foo=bar) and decode URI
@@ -23,7 +27,6 @@ if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
 $uri = rawurldecode($uri);
-// в метод dispatch - закидываются нужные данные ("метод-которым-выполнен-запрос","")
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 
@@ -63,7 +66,6 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
 
         // вызов метода '$handler[1]]'  Экземпляра
 
-        //$vars = "vars";
         call_user_func([$controller,$handler[1]],$vars);
 break;
 }
