@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +36,11 @@
             </a>
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
+
+            <!-- сообщение об успешной регистрации -->
+            <!-- <?php 
+            /* d($output = flash()->display('success')); exit; */
+            /* echo $output = flash()->display('success');  */?> -->
 
             <?php if (isset($_SESSION['success'])) : ?>
                 <div class="alert alert-success">
