@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php if( !session_id() ) @session_start();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +62,11 @@
                                 <div class="card p-4 rounded-plus bg-faded">
 
                                     <!-- флэш сообщение -->
+                                    <?php
+                                        if(flash()->hasMessages()){ 
+                                            echo flash()->display('error');   // после рендера display(), сообщение удаляется автоматически
+                                        }
+                                    ?>
                                     <!-- если Ошибка true, выводим сообщение -->
                                     <?php if (isset($_SESSION['danger'])) : ?>
                                         <div class="alert alert-danger text-dark" role="alert">

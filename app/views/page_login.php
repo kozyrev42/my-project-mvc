@@ -1,6 +1,4 @@
-<?php session_start();?>
-
-
+<?php if( !session_id() ) @session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,25 +35,12 @@
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
 
-            <!-- сообщение об успешной регистрации -->
-            <!-- <?php 
-            /* d($output = flash()->display('success')); exit; */
-            /* echo $output = flash()->display('success');  */?> -->
-
-            <?php if (isset($_SESSION['success'])) : ?>
-                <div class="alert alert-success">
-                    <?php echo $_SESSION['success'] ?>
-                </div>
-            <?php unset($_SESSION['success']); ?>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['error'])) : ?>
-                <div class="alert alert-danger">
-                    <?php echo $_SESSION['error'] ?>
-                </div>
-            <?php unset($_SESSION['error']); ?>
-            <?php endif; ?>
-
+            <!-- если сообщение записано, то рендерим его. сообщение об успешной регистрации -->
+            <?php
+                if(flash()->hasMessages()){ 
+                    echo flash()->display('success');   // после рендера display(), сообщение удаляется автоматически
+                }
+            ?>
 
             <form action="login.php" method="post">
                 <div class="form-group">

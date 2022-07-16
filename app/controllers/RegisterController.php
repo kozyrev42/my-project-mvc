@@ -13,7 +13,7 @@ class RegisterController
     private $selector;
     private $token;
     private $auth;
-    
+    public $flash; 
 
     public function __construct()
     {
@@ -26,7 +26,8 @@ class RegisterController
         // создание Экземпляра, передача ему (подключение к базе), далее он подкючен к базе, им можно пользоваться
         $this->auth = new Auth($db,null,null,null);
 
-
+        // Экземпляр для Flash-сообщений
+        $this->flash = new Flash();
     }
 
     // рендеринг шаблона
@@ -41,15 +42,14 @@ class RegisterController
         try {
             $userId = $this->auth->register($_POST['email'], $_POST['password'], $_POST['email'], function ($selector, $token) {
                 // $userId = $auth->register($_POST['email'], $_POST['password'], $_POST['username'], function ($selector, $token) {
-                // $userId = $this->auth->register('dd@dd.dd', 'dd', 'dd', function ($selector, $token) {
                 //echo 'Send ' . $selector . ' and ' . $token . ' to the user (e.g. via email)';
                 $this->selector = $selector;
                 $this->token = $token;
             });
             
             // если ->register() - выполнится, записываем сообщение об успешной регистрации
-            $flash = new Flash($message, $type = '');
-            $flash->message('Регистрация успешна!','success');
+            //$flash = new Flash();
+            $this->flash->message('Регистрация успешна, можете войти!','success');
 
             // рендер шаблона из видов     
             echo $this->templates->render('page_login');
@@ -63,7 +63,9 @@ class RegisterController
             die('Invalid password');
         }
         catch (\Delight\Auth\UserAlreadyExistsException $e) {
-            die('User already exists');
+            //die('User already exists');
+            $this->flash->message('Пользователь уже существует!','error');
+            echo $this->templates->render('page_register');
         }
         catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');

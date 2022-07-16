@@ -529,7 +529,7 @@
                     "1.0.x": "1.0.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/function.php"
