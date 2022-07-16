@@ -29,4 +29,11 @@ class HomeController
         // рендер шаблона логирования
         echo $this->templates->render('page_login');
     }
+
+    public function page_users()
+    {
+        // рендер шаблона логирования
+        echo $this->templates->render('page_users');
+    }
+
 }

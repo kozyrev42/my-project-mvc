@@ -17,6 +17,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     // роут на контроллер регистрации
     $r->addRoute('POST', '/register', ['App\controllers\RegisterController','register']);
 
+    // роут на страницу пользователи
+    $r->addRoute('GET', '/page_users', ['App\controllers\HomeController','page_users']);
 
 });
 
