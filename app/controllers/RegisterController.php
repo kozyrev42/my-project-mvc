@@ -52,7 +52,8 @@ class RegisterController
             $this->flash->message('Регистрация успешна, можете войти!','success');
 
             // рендер шаблона из видов     
-            echo $this->templates->render('page_login');
+            //echo $this->templates->render('page_login');
+            header('Location: /page_login');
         }
 
         // отлов ошибок Исключений
@@ -65,7 +66,7 @@ class RegisterController
         catch (\Delight\Auth\UserAlreadyExistsException $e) {
             //die('User already exists');
             $this->flash->message('Пользователь уже существует!','error');
-            echo $this->templates->render('page_register');
+            header('Location: /page_register');
         }
         catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');

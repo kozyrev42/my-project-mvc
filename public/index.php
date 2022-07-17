@@ -4,21 +4,24 @@
  */
 require '../vendor/autoload.php';
 
+
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {    // записываем в диспетчер пути(роуты), которые будут доступны в приложении, припереходе по Роуту, передаются данные указанные в параметре
     
-    // роут на страницу регистрации  ВРЕМЕННО !!!!!
-    $r->addRoute('GET', '/', ['App\controllers\RegisterController','page_register']); //HomeController - класс, index - метод Класса
+    // роут на страницу Всех Пользователей
+    $r->addRoute('GET', '/', ['App\controllers\HomeController','index']); //HomeController - класс, index - метод Класса
     
-    // роут на страницу логирования
-    $r->addRoute('GET', '/page_login', ['App\controllers\HomeController','page_login']);
-
     // роут на страницу регистрации
     $r->addRoute('GET', '/page_register', ['App\controllers\RegisterController','page_register']);
     // роут на контроллер регистрации
     $r->addRoute('POST', '/register', ['App\controllers\RegisterController','register']);
 
+    // роут на страницу логирования
+    $r->addRoute('GET', '/page_login', ['App\controllers\LoginController','page_login']);
+    // роут на контроллер логирования
+    $r->addRoute('POST', '/login', ['App\controllers\LoginController','login']);
+
     // роут на страницу пользователи
-    $r->addRoute('GET', '/page_users', ['App\controllers\HomeController','page_users']);
+    //$r->addRoute('GET', '/page_users', ['App\controllers\HomeController','page_users']);
 
 });
 

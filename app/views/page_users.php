@@ -1,5 +1,5 @@
-<?php
-session_start();
+<?php if( !session_id() ) @session_start();
+
 //require_once('functions.php');
 
 //проверка на авторизацию 
@@ -7,6 +7,10 @@ session_start();
 //     // если не авторизован, то перенаправление на форму логирования
 //     redirect_to('page_login.php');
 // }
+
+//d($this->auth->isLoggedIn());
+
+
 
 // получить всех пользователей
 // $users = get_all_users();
@@ -74,6 +78,13 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
             </div>
             <?php unset($_SESSION['danger']); ?>
         <?php endif; ?>
+
+
+        <?php //d($postsInView); exit;
+            foreach($postsInView as $post):?>
+            <?php echo $post['email']?> <br>
+        <?php endforeach;?>
+
 
         <div class="subheader">
             <h1 class="subheader-title">

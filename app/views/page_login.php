@@ -35,14 +35,14 @@
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
 
-            <!-- если сообщение записано, то рендерим его. сообщение об успешной регистрации -->
+            <!-- если сообщения записана, то рендерим их. сообщение об успешной регистрации или сообщение о вводе не верных данных логирования -->
             <?php
                 if(flash()->hasMessages()){ 
-                    echo flash()->display('success');   // после рендера display(), сообщение удаляется автоматически
+                    echo flash()->display();    // после рендера display(), сообщение удаляется автоматически
                 }
             ?>
 
-            <form action="login.php" method="post">
+            <form action="login" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
                     <input type="email" name="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
@@ -51,12 +51,12 @@
                     <label class="form-label" for="password">Пароль</label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="" >
                 </div>
-                <div class="form-group text-left">
+                <!-- <div class="form-group text-left">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="rememberme">
                         <label class="custom-control-label" for="rememberme">Запомнить меня</label>
                     </div>
-                </div>
+                </div> -->
                 <button type="submit" class="btn btn-default float-right">Войти</button>
             </form>
 
