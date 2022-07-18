@@ -61,7 +61,20 @@ class LoginController
         catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
         }
+    }
 
+    // выход из приложения
+    public function logout()
+    {
+        try {
+            $this->auth->logOut();
+            $this->flash->warning('Пользователь вышел из системы');
+            header('Location: /');
+        }
+        catch (\Delight\Auth\NotLoggedInException $e) {
+            $this->flash->warning('Неизвестная ошибка');
+            header('Location: /');
+        }
     }
 
 }

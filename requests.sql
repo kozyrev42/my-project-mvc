@@ -62,20 +62,31 @@ CREATE TABLE IF NOT EXISTS `users_throttling` (
   KEY `expires_at` (`expires_at`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/* скрипт не выполнять блеать */
+
+/* добавление Полей */
+
+ALTER TABLE `users`
+    ADD COLUMN `avatar` VARCHAR(255) AFTER `force_logout`;
+ALTER TABLE `users`
+    ADD COLUMN `status_color` VARCHAR(255) AFTER `avatar`;
+ALTER TABLE `users`
+    ADD COLUMN `name` VARCHAR(255) AFTER `status_color`;
+ALTER TABLE `users`
+    ADD COLUMN `position` VARCHAR(255) AFTER `name`;
+ALTER TABLE `users`
+    ADD COLUMN `tel` VARCHAR(255) AFTER `position`;
+ALTER TABLE `users`
+    ADD COLUMN `address` VARCHAR(255) AFTER `tel`;
+ALTER TABLE `users`
+    ADD COLUMN `vk` VARCHAR(255) AFTER `address`;
+ALTER TABLE `users`
+    ADD COLUMN `teleg` VARCHAR(255) AFTER `vk`;
+ALTER TABLE `users`
+    ADD COLUMN `insta` VARCHAR(255) AFTER `teleg`;
+
+
+    /* ??? скрипт не выполнять*/
 CREATE TABLE `users-dive` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `email` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
     `role` VARCHAR(255) DEFAULT 'user',
-    `avatar` VARCHAR(255),
-    `status` VARCHAR(255),
-    `name` VARCHAR(255),
-    `position` VARCHAR(255),
-    `tel` VARCHAR(255),
-    `address` VARCHAR(255),
-    `vk` VARCHAR(255),
-    `teleg` VARCHAR(255),
-    `insta` VARCHAR(255),
     PRIMARY KEY (id)
 ) default charset utf8mb4;

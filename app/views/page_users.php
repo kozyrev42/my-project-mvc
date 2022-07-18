@@ -40,11 +40,11 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
 
 <body class="mod-bg-1 mod-nav-link">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-primary-gradient">
-        <a class="navbar-brand d-flex align-items-center fw-500" href="users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand d-flex align-items-center fw-500" href="/"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="users.php">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -54,7 +54,7 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
                     </li> -->
                 <!--  -->
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Выйти</a>
+                    <a class="nav-link" href="logout">Выйти</a>
                 </li>
 
             </ul>
@@ -80,12 +80,6 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         <?php endif; ?>
 
 
-        <?php //d($postsInView); exit;
-            foreach($postsInView as $post):?>
-            <?php echo $post['email']?> <br>
-        <?php endforeach;?>
-
-
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -94,6 +88,7 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         <div class="row">
             <div class="col-xl-12">
 
+                <!-- ??? -->
                 <?php if ($_SESSION['user']['role'] == "admin") : ?>
                     <a class="btn btn-success" href="create_user.php">Добавить</a>
                 <?php endif; ?>
@@ -113,7 +108,7 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         </div>
         <div class="row" id="js-contacts">
 
-            <?php foreach ($users as $user) : ?>
+            <?php foreach ($postsInView as $user) : ?>
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?php echo $user['name']; ?>">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
@@ -206,8 +201,8 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         </div>
         <div>
             <ul class="list-table m-0">
-                <li><a href="intel_introduction.html" class="text-secondary fw-700">Home</a></li>
-                <li class="pl-3"><a href="info_app_licensing.html" class="text-secondary fw-700">About</a></li>
+                <li><a href="/" class="text-secondary fw-700">Home</a></li>
+                <li class="pl-3"><a href="/" class="text-secondary fw-700">About</a></li>
             </ul>
         </div>
     </footer>
