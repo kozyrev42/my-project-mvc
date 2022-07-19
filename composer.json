@@ -6,7 +6,9 @@
         "league/plates":"3.4.0",
         "kint-php/kint": "^4.1",
         "tamtamchik/simple-flash": "^2.0",
-        "php-di/php-di": "^6.0"
+        "php-di/php-di": "6.0.0"
+        
+        
     },
 
     "autoload":{

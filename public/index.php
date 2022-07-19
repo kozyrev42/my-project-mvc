@@ -1,9 +1,15 @@
 <?php
+if( !session_id() ) @session_start();
 /**
- * фронт-контроллер, содержит маршрутизатор
+ * фронт-контроллер
  */
 require '../vendor/autoload.php';
 
+use DI\ContainerBuilder;
+
+// d($builder = new ContainerBuilder());
+//$container = $builder->build();
+// d (new $containerBuilder);exit;
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {    // записываем в диспетчер пути(роуты), которые будут доступны в приложении, припереходе по Роуту, передаются данные указанные в параметре
     
