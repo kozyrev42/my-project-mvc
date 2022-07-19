@@ -10,7 +10,6 @@ class LoginController
 {
     private $templates;
     private $auth;
-    //public $flash; 
 
     public function __construct()
     {
@@ -38,10 +37,9 @@ class LoginController
     public function login()
     {
         try {
-            //$auth->login($_POST['email'], $_POST['password']);
             $this->auth->login($_POST['email'], $_POST['password']);
 
-            // если залогинюсь перехожу на Главную
+            // если залогинен переход на Главную
             header('Location: /');
         }
 
@@ -68,13 +66,12 @@ class LoginController
     {
         try {
             $this->auth->logOut();
-            $this->flash->warning('Пользователь вышел из системы');
+            $this->flash->message('Пользователь вышел из системы','warning');
             header('Location: /');
         }
         catch (\Delight\Auth\NotLoggedInException $e) {
-            $this->flash->warning('Неизвестная ошибка');
+            $this->flash->message('Неизвестная ошибка','warning');
             header('Location: /');
         }
     }
-
 }

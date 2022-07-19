@@ -13,7 +13,6 @@ class RegisterController
     private $selector;
     private $token;
     private $auth;
-    public $flash; 
 
     public function __construct()
     {
@@ -48,11 +47,9 @@ class RegisterController
             });
             
             // если ->register() - выполнится, записываем сообщение об успешной регистрации
-            //$flash = new Flash();
             $this->flash->message('Регистрация успешна, можете войти!','success');
 
             // рендер шаблона из видов     
-            //echo $this->templates->render('page_login');
             header('Location: /page_login');
         }
 

@@ -10,7 +10,7 @@ class HomeController
 {
     private $templates;
     private $auth;
-    public $dbqb;
+    public $dbQB;
 
     public function __construct()
     {
@@ -24,14 +24,14 @@ class HomeController
         $this->auth = new Auth($db,null,null,null);
 
         // Экземпляр работает с запросами к Базе
-        $this->dbqb = new QueryBuilderUsers();
+        $this->dbQB = new QueryBuilderUsers();
     }
 
     public function index() // если залогинин
     {   
         if ($this->auth->isLoggedIn()) {
             // получение всех из таблицы 'users'
-            $posts = $this->dbqb->getAll('users');
+            $posts = $this->dbQB->getAll('users');
             echo $this->templates->render('page_users', ['postsInView' => $posts]); //в вид передаём результат вызова из базы ['postsInView' => $posts]
         } else {
             header('Location: /page_login');    // иначе на страницу Логирования

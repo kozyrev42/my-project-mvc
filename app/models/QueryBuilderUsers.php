@@ -27,7 +27,6 @@ class QueryBuilderUsers
         $sth->execute($select->getBindValues());             // выполняем запрос
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         return $result;
-        //var_dump($result);
     }
 
     public function insert($table,$data)

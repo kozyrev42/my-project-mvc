@@ -60,8 +60,8 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
         // => передаём контроллеру запрос из адресной строки
 
         // создание Экземпляра прям здесь
-        $controller = new $handler[0];          // new App\controllers\HomeController;
+        $controller = new $handler[0];    // $controller = new App\controllers\RegisterController;
         // вызывает функцию по имени которое ей передали, и передаёт ей параметры
-        call_user_func([$controller,$handler[1]],$vars);    // [$handler[0],$handler[1]] - вызывается $handler[0] и на лету вызывает метод $handler[1], передавая методу параметры $vars
+        call_user_func([$controller,$handler[1]],$vars); //  - вызывается $controller и на лету вызывает метод $handler[1] / 'register', передавая методу параметры $vars
     break;
 }
