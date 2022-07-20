@@ -24,7 +24,6 @@ class LoginController
 
         // Экземпляр для Flash-сообщений
         $this->flash = new Flash();
-
     }
 
     // рендер страницы логирования

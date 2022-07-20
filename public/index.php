@@ -3,12 +3,9 @@
 require '../vendor/autoload.php';
 
 use DI\ContainerBuilder;        // подключение контейнера для контроля над зависимостями
-use App\controllers;
 
 $containerBuilder = new ContainerBuilder();    // создание Объекта DI
 $container = $containerBuilder->build();       // сборка умного контейнера из объекта методом build(), для дальнейшего использования
-// d($containerBuilder);
-// exit;
 
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {    // записываем в диспетчер пути(роуты), которые будут доступны в приложении, припереходе по Роуту, передаются данные указанные в параметре
