@@ -1,15 +1,15 @@
 <?php
-if( !session_id() ) @session_start();
-/**
- * фронт-контроллер
- */
+
 require '../vendor/autoload.php';
 
-use DI\ContainerBuilder;
+use DI\ContainerBuilder;        // подключение контейнера для контроля над зависимостями
+use App\controllers;
 
-// d($builder = new ContainerBuilder());
-//$container = $builder->build();
-// d (new $containerBuilder);exit;
+$containerBuilder = new ContainerBuilder();    // создание Объекта DI
+$container = $containerBuilder->build();       // сборка умного контейнера из объекта методом build(), для дальнейшего использования
+// d($containerBuilder);
+// exit;
+
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {    // записываем в диспетчер пути(роуты), которые будут доступны в приложении, припереходе по Роуту, передаются данные указанные в параметре
     
@@ -64,10 +64,13 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
         // если путь в диспетчере существует, вызван нужным методом, и передана имя контроллера =>
         // => можем вызвать контроллер(функцию) 
         // => передаём контроллеру запрос из адресной строки
-
+        
         // создание Экземпляра прям здесь
-        $controller = new $handler[0];    // $controller = new App\controllers\RegisterController;
+        //$controller = new $handler[0];    // $controller = new App\controllers\RegisterController;
         // вызывает функцию по имени которое ей передали, и передаёт ей параметры
-        call_user_func([$controller,$handler[1]],$vars); //  - вызывается $controller и на лету вызывает метод $handler[1] / 'register', передавая методу параметры $vars
+        //call_user_func([$controller,$handler[1]],$vars); //  - вызывается $controller и на лету вызывает метод $handler[1] / 'register', передавая методу параметры $vars
+    
+        // используем  DI контейнер
+        $container->call($routeInfo[1],$routeInfo[2]);
     break;
 }

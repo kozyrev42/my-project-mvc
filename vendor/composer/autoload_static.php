@@ -9,6 +9,7 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
     public static $files = array (
         '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
         '6157b075b923803e5ef157aeb43b83bd' => __DIR__ . '/..' . '/tamtamchik/simple-flash/src/function.php',
     );
 
@@ -17,6 +18,16 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
         array (
             'Tamtamchik\\SimpleFlash\\' => 23,
         ),
+        'S' => 
+        array (
+            'SuperClosure\\' => 13,
+        ),
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+            'PhpParser\\' => 10,
+            'PhpDocReader\\' => 13,
+        ),
         'L' => 
         array (
             'League\\Plates\\' => 14,
@@ -24,6 +35,10 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
         'K' => 
         array (
             'Kint\\' => 5,
+        ),
+        'I' => 
+        array (
+            'Invoker\\' => 8,
         ),
         'F' => 
         array (
@@ -36,11 +51,13 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
             'Delight\\Cookie\\' => 15,
             'Delight\\Base64\\' => 15,
             'Delight\\Auth\\' => 13,
+            'DI\\' => 3,
         ),
         'A' => 
         array (
             'Aura\\SqlQuery\\' => 14,
-            'App\\' => 4,
+            'App\\models\\' => 11,
+            'App\\controllers\\' => 16,
         ),
     );
 
@@ -49,6 +66,22 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
         array (
             0 => __DIR__ . '/..' . '/tamtamchik/simple-flash/src',
         ),
+        'SuperClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jeremeamia/superclosure/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'PhpDocReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+        ),
         'League\\Plates\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/plates/src',
@@ -56,6 +89,10 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
         'FastRoute\\' => 
         array (
@@ -81,13 +118,21 @@ class ComposerStaticInitb77fc806df687092d81c2d4c3f51b68a
         array (
             0 => __DIR__ . '/..' . '/delight-im/auth/src',
         ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
+        ),
         'Aura\\SqlQuery\\' => 
         array (
             0 => __DIR__ . '/..' . '/aura/sqlquery/src',
         ),
-        'App\\' => 
+        'App\\models\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app',
+            0 => __DIR__ . '/../..' . '/app/models',
+        ),
+        'App\\controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers',
         ),
     );
 

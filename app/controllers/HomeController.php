@@ -12,7 +12,7 @@ class HomeController
     private $auth;
     public $dbQB;
 
-    public function __construct()
+    public function __construct(QueryBuilderUsers $dbQB)
     {
         // создаём Экземпляр видов, для дальнейшего использования его методов
         $this->templates = new Engine('../app/views','php'); // передаём путь до моих Видов в views
@@ -24,7 +24,9 @@ class HomeController
         $this->auth = new Auth($db,null,null,null);
 
         // Экземпляр работает с запросами к Базе
-        $this->dbQB = new QueryBuilderUsers();
+        //$this->dbQB = new QueryBuilderUsers();
+        // создаём Экземпляр с помощью DI-контейнера, Экземпляр  
+        $this->dbQB = $dbQB;
     }
 
     public function index() // если залогинин

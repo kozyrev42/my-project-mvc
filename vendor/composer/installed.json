@@ -31,7 +31,7 @@
                     "type": "library"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Aura\\SqlQuery\\": "src/"
@@ -98,7 +98,7 @@
             },
             "time": "2021-04-21T14:39:10+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Delight\\Auth\\": "src/"
@@ -142,7 +142,7 @@
             },
             "time": "2017-07-24T18:59:51+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Delight\\Base64\\": "src/"
@@ -191,7 +191,7 @@
             },
             "time": "2020-04-16T11:01:26+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Delight\\Cookie\\": "src/"
@@ -239,7 +239,7 @@
             },
             "time": "2020-02-21T10:46:03+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Delight\\Db\\": "src/"
@@ -286,7 +286,7 @@
             },
             "time": "2021-10-12T18:52:29+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Delight\\Http\\": "src/"
@@ -339,7 +339,7 @@
                     "dev-master": "2.4-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "SuperClosure\\": "src/"
@@ -407,7 +407,7 @@
             },
             "time": "2022-07-12T15:40:11+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "init.php"
@@ -473,7 +473,7 @@
                     "dev-master": "3.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "League\\Plates\\": "src"
@@ -533,7 +533,7 @@
             },
             "time": "2018-02-13T20:26:39+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "src/functions.php"
@@ -595,7 +595,7 @@
                     "dev-master": "3.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "PhpParser\\": "lib/PhpParser"
@@ -645,7 +645,7 @@
             },
             "time": "2017-03-20T19:28:22+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Invoker\\": "src/"
@@ -710,7 +710,7 @@
             },
             "time": "2018-02-20T07:27:46+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "src/functions.php"
@@ -763,7 +763,7 @@
             },
             "time": "2019-09-26T11:24:58+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "PhpDocReader\\": "src/PhpDocReader"
@@ -809,7 +809,7 @@
                     "dev-master": "1.0.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -942,7 +942,7 @@
                     "1.0.x": "1.0.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "src/function.php"
