@@ -9,10 +9,12 @@ class QueryBuilderUsers
     private $pdo;
     private $queryFactory;
 
-    public function __construct()
+    public function __construct(PDO $pdo, QueryFactory $queryFactory)
     {
-        $this->pdo = new PDO("mysql:host=127.0.0.1;dbname=my-project-mvc;charset=utf8", "root", "");
-        $this->queryFactory = new QueryFactory('mysql',null);  // создание Экземпляра класса, подключенного из vendor
+        //$this->pdo = new PDO("mysql:host=127.0.0.1;dbname=my-project-mvc;charset=utf8", "root", "");  // без di-контейнера
+        $this->pdo = $pdo;
+        //$this->queryFactory = new QueryFactory('mysql',null);  // создание Экземпляра класса, подключенного из vendor
+        $this->queryFactory = $queryFactory;
     }
 
     public function getAll($table)

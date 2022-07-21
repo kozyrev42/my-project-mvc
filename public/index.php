@@ -3,8 +3,31 @@
 require '../vendor/autoload.php';
 
 use DI\ContainerBuilder;        // подключение контейнера для контроля над зависимостями
+use League\Plates\Engine;
+use Delight\Auth\Auth;
+use Aura\SqlQuery\QueryFactory;
 
 $containerBuilder = new ContainerBuilder();    // создание Объекта DI
+
+// добавляем Исключения, для DI-контейнера
+$containerBuilder->addDefinitions([    // если DI-контейнер - увидит в __construct(Engine), 
+    Engine::class => function () {      // то он создаст Экземпляр по прописанному правилу:
+        return new Engine('../app/views','php');
+    },
+
+    PDO::class => function () {
+        return new PDO("mysql:host=127.0.0.1;dbname=my-project-mvc;charset=utf8", "root", "");
+    },
+
+    Auth::class => function ($container) {
+        return new Auth($container->get('PDO'));    // Auth - требует PDO, поэтому обращаемся к Контейнеру DI, с помощью метода ->get, получаем PDO
+    },
+
+    QueryFactory::class => function () {
+        return new QueryFactory('mysql',null);
+    }
+]);
+
 $container = $containerBuilder->build();       // сборка умного контейнера из объекта методом build(), для дальнейшего использования
 
 
@@ -55,7 +78,7 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
         break;
     case FastRoute\Dispatcher::FOUND:       // FOUND - константа содержит "1"
         // $routeInfo[1]; $routeInfo[2]; - приходит информация из параметров вызванного Роута
-        $handler = $routeInfo[1];       // получение "название" обработчика, который прописан в диспетчере 'simpleDispatcher', Третий параметр из addRoute(1,2,3)
+        $handler = $routeInfo[1];       // получение "название" обработчика, который прописан в диспетчере simpleDispatcher() {...}, Третий параметр из addRoute(1,2,3)
         $vars = $routeInfo[2];          // параметры которые пришли с запросом, их можно использовать
         
         // если путь в диспетчере существует, вызван нужным методом, и передана имя контроллера =>

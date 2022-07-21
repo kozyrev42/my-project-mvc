@@ -11,19 +11,23 @@ class LoginController
     private $templates;
     private $auth;
 
-    public function __construct()
+    public function __construct(Engine $templates, Auth $auth, Flash $flash)
     {
         // создаём Экземпляр Видов, для дальнейшего использования его методов
-        $this->templates = new Engine('../app/views','php'); // передаём путь до моих Видов в views
+        //$this->templates = new Engine('../app/views','php'); // передаём путь до моих Видов в views   // без di-контейнера
+        $this->templates = $templates;
 
         // Экземпляр подключение к базе
-        $db = new PDO("mysql:host=127.0.0.1;dbname=my-project-mvc;charset=utf8", "root", "");
+        //$db = new PDO("mysql:host=127.0.0.1;dbname=my-project-mvc;charset=utf8", "root", "");
+        // PDO - создан в конфигурации DI-контейнера
 
         // создание Экземпляра, передача ему (подключение к базе), далее он подкючен к базе, им можно пользоваться
-        $this->auth = new Auth($db,null,null,null);
+        //$this->auth = new Auth($db,null,null,null);   // без di-контейнера
+        $this->auth = $auth;
 
         // Экземпляр для Flash-сообщений
-        $this->flash = new Flash();
+        //$this->flash = new Flash();   // без di-контейнера
+        $this->flash = $flash;
     }
 
     // рендер страницы логирования
