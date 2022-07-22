@@ -1,19 +1,5 @@
 <?php if( !session_id() ) @session_start();
 
-//require_once('functions.php');
-
-//проверка на авторизацию 
-// if (is_not_logged_in()) {
-//     // если не авторизован, то перенаправление на форму логирования
-//     redirect_to('page_login.php');
-// }
-
-//d($this->auth->isLoggedIn());
-
-
-
-// получить всех пользователей
-// $users = get_all_users();
 
 // назначение имени ссылки на аватар, в зависимости загружена ли картинка
 // $name_avatar = has_avatar($edit_id_user);
@@ -88,10 +74,10 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         <div class="row">
             <div class="col-xl-12">
 
-                <!-- ??? -->
-                <?php if ($_SESSION['user']['role'] == "admin") : ?>
-                    <a class="btn btn-success" href="create_user.php">Добавить</a>
-                <?php endif; ?>
+                <!-- рендер кнопки "Добавить", если залогинелся Админ -->
+                <? if ($auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
+                    <a class="btn btn-success" href="/page_create_user">Добавить</a>
+                <? endif; ?>
 
                 <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
                     <input type="text" id="js-filter-contacts" name="filter-contacts" class="form-control shadow-inset-2 form-control-lg" placeholder="Найти пользователя">
@@ -108,7 +94,7 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
         </div>
         <div class="row" id="js-contacts">
 
-            <?php foreach ($postsInView as $user) : ?>
+            <?php foreach ($usersInView as $user) : ?>
                 <div class="col-xl-4">
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?php echo $user['name']; ?>">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
@@ -121,16 +107,8 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
                                     <a href="page_profile.php?id=<?php echo $user['id'] ?>" class="fs-xl text-truncate text-truncate-lg text-info" > 
                                         <?php echo $user['name']; ?>
                                     </a> 
-                                    <!-- админ весь доступ -->
-                                    <?php if ($_SESSION['user']['role'] == "admin") : ?>
-                                        <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
-                                            <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
-                                            <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
-                                        </a>
-                                    <?php endif; ?>
-
-                                    <!-- доступ только к себе + не админ -->
-                                    <?php if ($_SESSION['user']['id'] == $user['id'] && ($_SESSION['user']['role'] !== "admin")) : ?>
+                                    <!-- доступ: у админа ко всём, у юзера только к своему -->
+                                    <?php if ($auth->hasRole(\Delight\Auth\Role::ADMIN) || $auth->getUserId() == $user['id']) : ?>
                                         <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                             <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                             <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>

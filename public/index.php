@@ -49,8 +49,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     // роут на контроллер выхода
     $r->addRoute('GET', '/logout', ['App\controllers\LoginController','logout']);
 
-    // роут на страницу пользователи
-    //$r->addRoute('GET', '/page_users', ['App\controllers\HomeController','page_users']);
+    // роут на страницу создания юзера
+    $r->addRoute('GET', '/page_create_user', ['App\controllers\HomeController','showPageCreate']);
 
 });
 
