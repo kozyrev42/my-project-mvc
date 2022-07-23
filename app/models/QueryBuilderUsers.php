@@ -31,16 +31,28 @@ class QueryBuilderUsers
         return $result;
     }
 
-    public function insert($table,$data)
-    {
-        $insert = $this->queryFactory->newInsert();     // Создайте запрос insert, далее будем им пользоваться
+    // public function insert($table,$data,$values)
+    // {
+    //     $insert = $this->queryFactory->newInsert();     // Создайте запрос insert, далее будем им пользоваться
 
-        $insert
-            ->into($table)                   // INTO this table
-            ->cols($data);                      // bind values as "(col) VALUES (:col)"
-            //var_dump($insert->getStatement());exit;
-            $sth = $this->pdo->prepare($insert->getStatement());    // подготавливаем запрос
-            $sth->execute($insert->getBindValues());                // выполняем запрос
+    //     $insert
+    //         ->into($table)                   // INTO this table
+    //         ->cols($data)
+    //         ->bindValues($values);                   
+    //         $sth = $this->pdo->prepare($insert->getStatement());    // подготавливаем запрос
+    //         $sth->execute($insert->getBindValues());                // выполняем запрос
+    // }
+
+    public function updateInfo($table, $data, $user_id)
+    {
+        $update = $this->queryFactory->newUpdate();
+        $update
+            ->table ($table)                  
+            ->cols ($data)
+            ->where ('id = :id')
+            ->bindValue ('id', $user_id);
+            $sth = $this->pdo->prepare($update->getStatement());   
+            $sth->execute($update->getBindValues());
     }
 
 
@@ -67,5 +79,22 @@ class QueryBuilderUsers
             //var_dump($delete->getStatement());exit;
             $sth = $this->pdo->prepare($delete->getStatement());   
             $sth->execute($delete->getBindValues());
+    }
+
+    public function getById($userId)
+    {
+        $select = $this->queryFactory->newSelect();
+        $select->cols(['*']);
+        $select
+            ->from('users')
+            ->where('id = :id')
+            ->bindValues(['id' => $userId]);
+
+        $sth = $this->pdo->prepare($select->getStatement());
+
+        $sth->execute($select->getBindValues());
+
+        return $sth->fetch(PDO::FETCH_ASSOC);
+
     }
 }

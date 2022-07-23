@@ -70,9 +70,7 @@ ALTER TABLE `users`
 ALTER TABLE `users`
     ADD COLUMN `status_color` VARCHAR(255) AFTER `avatar`;
 ALTER TABLE `users`
-    ADD COLUMN `name` VARCHAR(255) AFTER `status_color`;
-ALTER TABLE `users`
-    ADD COLUMN `position` VARCHAR(255) AFTER `name`;
+    ADD COLUMN `position` VARCHAR(255) AFTER `status_color`;
 ALTER TABLE `users`
     ADD COLUMN `tel` VARCHAR(255) AFTER `position`;
 ALTER TABLE `users`

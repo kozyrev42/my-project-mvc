@@ -49,22 +49,12 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
 
     <main id="js-page-content" role="main" class="page-content mt-3">
 
-        <!-- успешно -->
-        <?php if (isset($_SESSION['success'])) : ?>
-            <div class="alert alert-success">
-                <?php echo $_SESSION['success'] ?>
-            </div>
-            <?php unset($_SESSION['success']); ?>
-        <?php endif; ?>
-        
-        <!-- Редактировать только свой профиль! -->
-        <?php if (isset($_SESSION['danger'])) : ?>
-            <div class="alert alert-danger">
-                <?php echo $_SESSION['danger'] ?>
-            </div>
-            <?php unset($_SESSION['danger']); ?>
-        <?php endif; ?>
-
+        <!-- если сообщения записана, то рендерим их -->
+        <?php
+            if(flash()->hasMessages()){ 
+                echo flash()->display();    // после рендера display(), сообщение удаляется автоматически
+            }
+        ?>
 
         <div class="subheader">
             <h1 class="subheader-title">
@@ -96,16 +86,16 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
 
             <?php foreach ($usersInView as $user) : ?>
                 <div class="col-xl-4">
-                    <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?php echo $user['name']; ?>">
+                    <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?php echo $user['username']; ?>">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
-                                <span class="status <?php echo $user['status']; ?> mr-3">
+                                <span class="status <?php echo $user['status_color']; ?> mr-3">
                                     <span class="rounded-circle profile-image d-block " style="background-image:url(img/demo/avatars/<?php if (!empty($user['avatar'])) {echo $user['avatar'];} else { echo $name_avatar; } ?>); background-size: cover;"></span>
                                 </span>
                                 <div class="info-card-text flex-1">
                                     
                                     <a href="page_profile.php?id=<?php echo $user['id'] ?>" class="fs-xl text-truncate text-truncate-lg text-info" > 
-                                        <?php echo $user['name']; ?>
+                                        <?php echo $user['username']; ?>
                                     </a> 
                                     <!-- доступ: у админа ко всём, у юзера только к своему -->
                                     <?php if ($auth->hasRole(\Delight\Auth\Role::ADMIN) || $auth->getUserId() == $user['id']) : ?>
@@ -116,7 +106,8 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
                                     <?php endif; ?>
 
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="edit.php?id=<?php echo $user['id'] ?>">
+                                        <!-- <a class="dropdown-item" href="page_edit/<?php $user['id']?>"> -->
+                                        <a class="dropdown-item" href="page_edit?id=<?=$user['id']?>">
                                             <i class="fa fa-edit"></i>
                                             Редактировать</a>
                                         <a class="dropdown-item" href="security.php?id=<?php echo $user['id'] ?>">

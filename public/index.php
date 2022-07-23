@@ -51,7 +51,13 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
     // роут на страницу создания юзера
     $r->addRoute('GET', '/page_create_user', ['App\controllers\HomeController','showPageCreate']);
+    // роут контроллер создания юзера
+    $r->addRoute('POST', '/create_user', ['App\controllers\HomeController','createUser']);
 
+    // страница редактирования профиля
+    //$r->addRoute('GET', '/page_edit/{id:\d+}', ['App\controllers\HomeController','editShowForm']);
+
+    $r->addRoute('GET', '/page_edit', ['App\controllers\HomeController','editShow']);
 });
 
 
@@ -80,7 +86,8 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
         // $routeInfo[1]; $routeInfo[2]; - приходит информация из параметров вызванного Роута
         $handler = $routeInfo[1];       // получение "название" обработчика, который прописан в диспетчере simpleDispatcher() {...}, Третий параметр из addRoute(1,2,3)
         $vars = $routeInfo[2];          // параметры которые пришли с запросом, их можно использовать
-        
+        //d($handler);
+        //d($routeInfo[2]);exit;
         // если путь в диспетчере существует, вызван нужным методом, и передана имя контроллера =>
         // => можем вызвать контроллер(функцию) 
         // => передаём контроллеру запрос из адресной строки
@@ -91,6 +98,6 @@ switch ($routeInfo[0]) {    // по умолчание $routeInfo[0]
         //call_user_func([$controller,$handler[1]],$vars); //  - вызывается $controller и на лету вызывает метод $handler[1] / 'register', передавая методу параметры $vars
     
         // используем  DI контейнер
-        $container->call($routeInfo[1],$routeInfo[2]);
+        $container->call($handler, $vars);
     break;
 }

@@ -67,15 +67,6 @@
                                             echo flash()->display('error');   // после рендера display(), сообщение удаляется автоматически
                                         }
                                     ?>
-                                    <!-- если Ошибка true, выводим сообщение -->
-                                    <?php if (isset($_SESSION['danger'])) : ?>
-                                        <div class="alert alert-danger text-dark" role="alert">
-                                            <strong>Уведомление!</strong> <?php echo $_SESSION['danger'] ?>
-                                        </div>
-
-                                    <!-- удаляем элемент массива -->
-                                    <?php unset($_SESSION['danger']); ?>
-                                    <?php endif; ?>
 
                                     <!-- форма регистрации -->
                                     <form id="js-login" novalidate="" action="register" method="post">

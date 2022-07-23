@@ -12,6 +12,7 @@ class HomeController
     private $auth;
     public $dbQB;
 
+
     public function __construct(Engine $templates, QueryBuilderUsers $dbQB, Auth $auth, Flash $flash)
     {
         // создаём Экземпляр видов, для дальнейшего использования его методов
@@ -68,5 +69,72 @@ class HomeController
             $this->flash->warning('Позователь не авторизован');
             header('Location: /page_login');
         }
+    }
+
+    // метод обработчик создания Пользователя
+    public function createUser()
+    {
+        try {
+            $userId = $this->auth->register($_POST['email'], $_POST['password']);
+
+            //если userId создан, то обновляем данные для созданной записи
+            if ($userId){
+
+                //обновляем данные в таблице users
+                $this->dbQB->updateInfo('users',
+                    [
+                        'username' => $_POST['username'],   // 'поле в таблице' => $_POST['input name="..."'],
+                        'position' => $_POST['position'],
+                        'tel' => $_POST['tel'],
+                        'address' => $_POST['address'],
+                        'status_color' => $_POST['status_select'],
+                        'vk' => $_POST['vk'],
+                        'teleg' => $_POST['teleg'],
+                        'insta' => $_POST['insta'],
+                    ],
+                    $userId
+                    );
+
+            }
+
+
+            $this->flash->success('Мы зарегистрировали нового пользователя с ID ' . $userId);
+            header('Location: /');
+            exit;
+        }
+        catch (\Delight\Auth\InvalidEmailException $e) {
+            $this->flash->warning('Invalid email address');
+        }
+        catch (\Delight\Auth\InvalidPasswordException $e) {
+            $this->flash->warning('Invalid password');
+        }
+        catch (\Delight\Auth\UserAlreadyExistsException $e) {
+            $this->flash->warning('Пользователь уже существует');
+        }
+        catch (\Delight\Auth\TooManyRequestsException $e) {
+            $this->flash->warning('Too many requests');
+        }
+
+        // если регистрация не удалась, снова рендерим страницу создания, данные из формы не удалятся
+        echo $this->templates->render('page_create_user', ['auth' => $this->auth, 'name' => $_POST['name'], 'job_title' => $_POST['job_title'], 'phone' => $_POST['phone'], 'address' => $_POST['address'], 'status' => $_POST['status'], 'vk' => $_POST['vk'], 'telegram' => $_POST['telegram'], 'instagram' => $_POST['instagram'], 'email' => $_POST['email']]);
+    }
+
+    // страница Редактирования пользователя
+    // public function editShowForm($id)       // $id - сюда прилитит из Роутинга
+    // {
+    //     // проверка, свой-ли профиль открыл или админ
+    //     // if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+    //     //     $this->flash->warning('Access denied');
+    //     //     header('Location: /');
+    //     //     exit;
+    //     // }
+
+    //     // $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
+    //     echo $this->templates->render('page_edit', ['auth' => $this->auth, /* 'user' => $userInfo */]);
+    // }
+
+    public function editShow()
+    {
+    echo $this->templates->render('page_edit');
     }
 }
