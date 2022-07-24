@@ -69,13 +69,13 @@ class QueryBuilderUsers
             $sth->execute($update->getBindValues());
     }
 
-    public function delete($table,$email)
+    public function delete($id)
     {
         $delete = $this->queryFactory->newDelete();
         $delete
-            ->from($table)                  
-            ->where('email = :email')
-            ->bindValue('email', $email);
+            ->from('users')                  
+            ->where('id = :id')
+            ->bindValue('id', $id);
             //var_dump($delete->getStatement());exit;
             $sth = $this->pdo->prepare($delete->getStatement());   
             $sth->execute($delete->getBindValues());

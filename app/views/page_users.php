@@ -3,7 +3,7 @@
 
 // назначение имени ссылки на аватар, в зависимости загружена ли картинка
 // $name_avatar = has_avatar($edit_id_user);
-// если имя пришло false назначаем дефолтное
+// если имя пришло false/null назначаем дефолтное
 if (!$name_avatar) {$name_avatar = "avatar_default.png";}
 ?>
 
@@ -89,12 +89,12 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?php echo $user['username']; ?>">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
-                                <span class="status <?php echo $user['status_color']; ?> mr-3">
+                                <span class="status <?php echo $user['status_color']; ?> mr-3"> <!-- если в базе есть Аватар, рендерим его, Иначе дефолтную картинку -->
                                     <span class="rounded-circle profile-image d-block " style="background-image:url(img/demo/avatars/<?php if (!empty($user['avatar'])) {echo $user['avatar'];} else { echo $name_avatar; } ?>); background-size: cover;"></span>
                                 </span>
                                 <div class="info-card-text flex-1">
                                     
-                                    <a href="page_profile.php?id=<?php echo $user['id'] ?>" class="fs-xl text-truncate text-truncate-lg text-info" > 
+                                    <a href="page_profile?id=<?=$user['id'] ?>" class="fs-xl text-truncate text-truncate-lg text-info" > 
                                         <?php echo $user['username']; ?>
                                     </a> 
                                     <!-- доступ: у админа ко всём, у юзера только к своему -->
@@ -106,21 +106,20 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
                                     <?php endif; ?>
 
                                     <div class="dropdown-menu">
-                                        <!-- <a class="dropdown-item" href="page_edit/<?php $user['id']?>"> -->
                                         <a class="dropdown-item" href="page_edit?id=<?=$user['id']?>">
                                             <i class="fa fa-edit"></i>
                                             Редактировать</a>
-                                        <a class="dropdown-item" href="security.php?id=<?php echo $user['id'] ?>">
+                                        <a class="dropdown-item" href="page_security?id=<?=$user['id'] ?>">
                                             <i class="fa fa-lock"></i>
                                             Безопасность</a>
-                                        <a class="dropdown-item" href="status.php?id=<?php echo $user['id'] ?>">
+                                        <a class="dropdown-item" href="page_status?id=<?=$user['id'] ?>">
                                             <i class="fa fa-sun"></i>
                                             Установить статус</a>
-                                        <a class="dropdown-item" href="media.php?id=<?php echo $user['id'] ?>">
+                                        <a class="dropdown-item" href="page_media?id=<?=$user['id'] ?>">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
-                                        <a href="user_delete.php?id=<?php echo $user['id'] ?>" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                        <a href="user_delete?id=<?=$user['id'] ?>" class="dropdown-item" onclick="return confirm('вы уверены?');">
                                             <i class="fa fa-window-close"></i>
                                             Удалить
                                         </a>

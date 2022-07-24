@@ -54,7 +54,7 @@ class HomeController
             header('Location: /');
             exit;
         }
-
+        // проверка на логирование
         if ($this->auth->isLoggedIn() || $this->auth->isRemembered()){
             if ($this->auth->hasRole(\Delight\Auth\Role::ADMIN)) {
                 // рендерим страницу из Видов
@@ -119,22 +119,263 @@ class HomeController
         echo $this->templates->render('page_create_user', ['auth' => $this->auth, 'name' => $_POST['name'], 'job_title' => $_POST['job_title'], 'phone' => $_POST['phone'], 'address' => $_POST['address'], 'status' => $_POST['status'], 'vk' => $_POST['vk'], 'telegram' => $_POST['telegram'], 'instagram' => $_POST['instagram'], 'email' => $_POST['email']]);
     }
 
-    // страница Редактирования пользователя
-    // public function editShowForm($id)       // $id - сюда прилитит из Роутинга
-    // {
-    //     // проверка, свой-ли профиль открыл или админ
-    //     // if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
-    //     //     $this->flash->warning('Access denied');
-    //     //     header('Location: /');
-    //     //     exit;
-    //     // }
-
-    //     // $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
-    //     echo $this->templates->render('page_edit', ['auth' => $this->auth, /* 'user' => $userInfo */]);
-    // }
-
-    public function editShow()
+    // страница Редактирования пользователя 
+    public function showPageEdit()
     {
-    echo $this->templates->render('page_edit');
+        $id = $_GET['id']; // id - редактируемого пользователя
+        
+        //проверка, свой-ли профиль открыл или админ
+        if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+            $this->flash->warning('Access denied');
+            header('Location: /');
+            exit;
+        }
+
+        $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
+        //d($userInfo);exit;
+
+        echo $this->templates->render('page_edit', ['auth' => $this->auth, 'user' => $userInfo]);
+    }
+
+    // обработчик страницы редактирования
+    public function editUser()
+    {
+        // echo "editUser";
+        // d($_POST);
+        $userId = $_POST['id'];
+        $this->dbQB->updateInfo('users',
+                    [
+                        'username' => $_POST['username'],   // 'поле в таблице' => $_POST['input name="..."'],
+                        'position' => $_POST['position'],
+                        'tel' => $_POST['tel'],
+                        'address' => $_POST['address'],
+                    ],
+                    $userId
+                    );
+        //$userInfo = $this->dbQB->getById($userId);
+        $this->flash->success('Информация успешно редактирована!');
+        header('Location: /');
+    }
+
+    // рендер страницы Профиля
+    public function showPageProfile()
+    {
+        $id = $_GET['id']; // id - редактируемого пользователя
+        
+        //проверка, свой-ли профиль открыл или админ
+        if(!$this->auth->isLoggedIn()){
+            $this->flash->warning('Не вошли в приложение!');
+            header('Location: /');
+            exit;
+        }
+        $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
+        //d($userInfo);exit;
+        echo $this->templates->render('page_profile', ['auth' => $this->auth, 'user' => $userInfo]);
+    }
+
+    // рендер страницы Безопасность
+    public function showPageSecurity()
+    {
+        $id = $_GET['id'];
+        // проверка на Текущего пользователя и на Админа
+        if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+            $this->flash->warning('Access denied');
+            header('Location: /');
+            exit;
+        }
+        // получаем информацию Пользователя
+        $userInfo = $this->dbQB->getById($id);
+        echo $this->templates->render('page_security', ['auth' => $this->auth, 'user' => $userInfo]);
+
+    }
+
+    // обработчик страницы Безопасности
+    public function security()
+    {       
+        $id = $_POST['id'];
+        $userInfo = $this->dbQB->getById($id);
+        
+        $newPassword = $_POST['newPassword'];
+        // изменение Пароля
+        try {
+            $this->auth->changePasswordWithoutOldPassword($newPassword);
+
+            $this->flash->success('Пароль успешно изменён!');
+        }
+        catch (\Delight\Auth\NotLoggedInException $e) {
+            $this->flash->warning('Not logged in');
+        }
+        catch (\Delight\Auth\InvalidPasswordException $e) {
+            $this->flash->warning('Invalid password(s)');
+        }
+        catch (\Delight\Auth\TooManyRequestsException $e) {
+            $this->flash->warning('Too many requests');
+        }
+
+        // изменение почты
+        /* ? */
+
+        //header('Location: /page_security');
+        echo $this->templates->render('page_security', ['auth' => $this->auth, 'user' => $userInfo ]);
+    }
+
+    
+    // страница Статусы пользователя 
+    public function showPageStatus()
+    {
+        $id = $_GET['id']; // id - редактируемого пользователя
+        
+        //проверка, свой-ли профиль открыл или админ
+        if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+            $this->flash->warning('Access denied');
+            header('Location: /');
+            exit;
+        }
+
+        $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
+
+        echo $this->templates->render('page_status', ['auth' => $this->auth, 'user' => $userInfo]);
+    }
+
+    // обработчик страницы Статусы
+    public function status()
+    {
+        $userId = $_POST['id'];
+        $this->dbQB->updateInfo('users',
+                    [
+                        'status_color' => $_POST['status_select'] // 'поле в таблице' => $_POST['input name="..."'],
+                    ],
+                    $userId
+                    );
+        //$userInfo = $this->dbQB->getById($userId);
+        $this->flash->success('Информация успешно редактирована!');
+        header('Location: /');
+    }
+
+    public function mediaShow()
+    {
+        $id = $_GET['id'];
+        if(!($this->auth->getUserId() == $id || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+            $this->flash->warning('Access denied');
+            header('Location: /');
+            exit;
+        }
+
+        $userInfo = $this->dbQB->getById($id);  // информация о Юзере по id
+
+        echo $this->templates->render('page_media', ['auth' => $this->auth, 'user' => $userInfo]);
+    }
+
+
+
+
+    public function mediaHandler()
+    {
+        $userId = $_POST['id'];
+        $userInfo = $this->dbQB->getById($userId);  // информация о Юзере по id
+
+        // данные по файлу
+        $image_name = $_FILES['image']['name'];
+        $tmp_name = $_FILES['image']['tmp_name'];
+        // если аватар не выбран, выход из функции
+        if (empty($image_name)) {
+            $this->flash->warning('файл не выбран');
+            header('Location: /');
+            exit;
+        }
+
+        // если аватар выбран
+        if (!empty($image_name)) {
+            //d($image_name);
+
+            // есть ли аватар в базе
+            $name_avatar = $userInfo['avatar'];
+
+            // аватар в базе ЕСТЬ
+            if (!empty($name_avatar)) {
+                // удаление файла из каталога 
+                @unlink("img/demo/avatars/" . $name_avatar);
+
+                // загрузка новой
+                // получим расширение файла
+                $extension = pathinfo($image_name)["extension"];
+                // формируем уникальное имя файла
+                $uniq_image_name = uniqid() . "." . $extension;
+
+                // сохранить картинку в постоянную папку
+                // формируем путь сохранения, откуда
+                $tmp_name = $_FILES['image']['tmp_name'];
+                //куда
+                $target = "img/demo/avatars/" . $uniq_image_name;
+                // перемещаем в постоянную папку
+                move_uploaded_file($tmp_name, $target);
+
+                // записать в базу имени загруженего файла
+                $this->dbQB->updateInfo('users',
+                    [
+                        'avatar' => $uniq_image_name // 'поле в таблице' => $_POST['input name="..."'],
+                    ],
+                    $userId
+                    );
+                $this->flash->success('Аватар обновлён!');
+                header('Location: /');
+                exit;
+            }
+
+            // аватара в базе НЕТ, загружаем картинку, обновляем базу
+            if (!$name_avatar) {
+                // получим расширение файла
+                $extension = pathinfo($image_name)["extension"];
+                // формируем уникальное имя файла
+                $uniq_image_name = uniqid() . "." . $extension;
+
+                // сохранить картинку в постоянную папку
+                // формируем путь сохранения, откуда
+                $tmp_name = $_FILES['image']['tmp_name'];
+                //куда
+                $target = "img/demo/avatars/" . $uniq_image_name;
+                // перемещаем в постоянную папку
+                move_uploaded_file($tmp_name, $target);
+
+                // записать в базу имени загруженего файла
+                $this->dbQB->updateInfo('users',
+                    [
+                        'avatar' => $uniq_image_name // 'поле в таблице' => $_POST['input name="..."'],
+                    ],
+                    $userId
+                    );
+                $this->flash->success('Аватар обновлён!');
+                header('Location: /');
+                exit;
+            }
+        }
+    }
+
+
+
+
+    public function delete()
+    {
+        $userId = $_GET['id'];
+
+        // проверка, авторизован или админ?
+        if(!($this->auth->getUserId() == $userId || $this->auth->hasRole(\Delight\Auth\Role::ADMIN))){
+            $this->flash->warning('Access denied');
+            header('Location: /');
+            exit;
+        }
+
+        $this->dbQB->delete($userId);
+
+        if($this->auth->hasRole(\Delight\Auth\Role::ADMIN)){
+            $this->flash->success('User deleted');
+            header('Location: /');
+            exit;
+        } else {
+            $this->auth->logOut();
+            $this->flash->success('User deleted');
+            header('Location: /login');
+            exit;
+        }
     }
 }

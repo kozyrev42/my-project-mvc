@@ -55,9 +55,32 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/create_user', ['App\controllers\HomeController','createUser']);
 
     // страница редактирования профиля
-    //$r->addRoute('GET', '/page_edit/{id:\d+}', ['App\controllers\HomeController','editShowForm']);
+    $r->addRoute('GET', '/page_edit', ['App\controllers\HomeController','showPageEdit']);
+    // контроллер редактирования
+    $r->addRoute('POST', '/edit', ['App\controllers\HomeController','editUser']);
 
-    $r->addRoute('GET', '/page_edit', ['App\controllers\HomeController','editShow']);
+    // роут на страницу Профиля
+    $r->addRoute('GET', '/page_profile', ['App\controllers\HomeController','showPageProfile']);
+
+    // роут на страницу Безопасность
+    $r->addRoute('GET', '/page_security', ['App\controllers\HomeController','showPageSecurity']);
+    // обработчик страницы Безопасность
+    $r->addRoute('POST', '/security', ['App\controllers\HomeController','security']);
+
+    // страница статусы
+    $r->addRoute('GET', '/page_status', ['App\controllers\HomeController','showPageStatus']);
+    // контроллер редактирования статуса
+    $r->addRoute('POST', '/status', ['App\controllers\HomeController','status']);
+
+
+    // страница аватар
+    $r->addRoute('GET', '/page_media', ['App\controllers\HomeController','mediaShow']);
+    // обработчик загрузки
+    $r->addRoute('POST', '/media_handler', ['App\controllers\HomeController', 'mediaHandler']);
+
+
+    // удаление пользователя
+    $r->addRoute('GET', '/user_delete', ['App\controllers\HomeController', 'delete']);
 });
 
 

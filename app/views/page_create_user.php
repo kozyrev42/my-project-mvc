@@ -117,10 +117,10 @@
                                 </div>
 
                                 <!-- avatar -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Загрузить аватар</label>
                                     <input name="image" type="file" id="example-fileinput" class="form-control-file">
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
