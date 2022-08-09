@@ -1,0 +1,10 @@
+php_flag  display_errors 1
+php_flag  display_startup_errors 1
+php_value  error_reporting 2047
+
+Options +FollowSymLinks -Indexes
+RewriteEngine On
+ 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

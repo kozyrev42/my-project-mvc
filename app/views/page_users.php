@@ -1,10 +1,10 @@
 <?php if( !session_id() ) @session_start();
 
-
 // назначение имени ссылки на аватар, в зависимости загружена ли картинка
 // $name_avatar = has_avatar($edit_id_user);
 // если имя пришло false/null назначаем дефолтное
-if (!$name_avatar) {$name_avatar = "avatar_default.png";}
+$name_avatar="";
+if ($name_avatar=="") {$name_avatar = "avatar_default.png";}
 ?>
 
 <!DOCTYPE html>
