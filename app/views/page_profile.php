@@ -6,8 +6,8 @@ if( !session_id() ) @session_start();
 // $id_user = $_GET['id'];
 // $user = get_user_by_id($id_user);
 
-// если имя пришло false назначаем дефолтное
-if (!$name_avatar) {$name_avatar = "avatar_default.png";}
+// если имя дефолтное ава, если нет в базе
+$name_avatar = "avatar_default.png";
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ if (!$name_avatar) {$name_avatar = "avatar_default.png";}
 
 <body class="mod-bg-1 mod-nav-link">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-primary-gradient">
-        <a class="navbar-brand d-flex align-items-center fw-500" href="/"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand d-flex align-items-center fw-500" href="/"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png">Проект: Анкеты для знакомств</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
