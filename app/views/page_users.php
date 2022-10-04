@@ -58,7 +58,7 @@ if ($name_avatar=="") {$name_avatar = "avatar_default.png";}
 
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class='subheader-icon fal fa-users'></i> Список пользователей
+                <i class='subheader-icon fal fa-users'></i> Общайся, заводи новых друзей или даже найди любовь своей жизни!
             </h1>
         </div>
         <div class="row">
